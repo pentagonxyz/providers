@@ -77,7 +77,7 @@ export function setGlobalProvider(
 ): void {
   Object.defineProperty(window as Record<string, any>, 'ethereum', {
     value: providerInstance,
-    writable: false
+    writable: false,
   });
   window.dispatchEvent(new Event('ethereum#initialized'));
 }
