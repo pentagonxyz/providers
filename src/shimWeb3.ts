@@ -62,7 +62,7 @@ export function shimWeb3(
       value: web3Shim,
       enumerable: false,
       configurable: true,
-      writable: true,
+      writable: false,
     });
   }
 }
