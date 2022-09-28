@@ -12,13 +12,13 @@ const StreamProvider_1 = require("./StreamProvider");
 /**
  * The name of the stream consumed by {@link MetaMaskInpageProvider}.
  */
-exports.MetaMaskInpageProviderStreamName = 'metamask-provider';
+exports.MetaMaskInpageProviderStreamName = 'kevlar-provider';
 class MetaMaskInpageProvider extends StreamProvider_1.AbstractStreamProvider {
     /**
      * @param connectionStream - A Node.js duplex stream
      * @param options - An options bag
      * @param options.jsonRpcStreamName - The name of the internal JSON-RPC stream.
-     * Default: metamask-provider
+     * Default: kevlar-provider
      * @param options.logger - The logging API to use. Default: console
      * @param options.maxEventListeners - The maximum number of event
      * listeners. Default: 100

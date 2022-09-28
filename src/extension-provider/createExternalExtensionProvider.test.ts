@@ -57,14 +57,14 @@ async function getInitializedProvider({
   const onWrite = jest.fn();
   const port = new MockPort((name, data) => {
     if (
-      name === 'metamask-provider' &&
+      name === 'kevlar-provider' &&
       data.method === 'metamask_getProviderState'
     ) {
       // Wrap in `setImmediate` to ensure a reply is recieved by the provider
       // after the provider has processed the request, to ensure that the
       // provider recognizes the id.
       setImmediate(() =>
-        port.reply('metamask-provider', {
+        port.reply('kevlar-provider', {
           id: onWrite.mock.calls[0][1].id,
           jsonrpc: '2.0',
           result: {
@@ -145,10 +145,10 @@ describe('createExternalExtensionProvider', () => {
           const { provider, port } = await getInitializedProvider({
             onMethodCalled: [
               {
-                substream: 'metamask-provider',
+                substream: 'kevlar-provider',
                 method,
                 callback: ({ id }) => {
-                  port.reply('metamask-provider', {
+                  port.reply('kevlar-provider', {
                     id,
                     jsonrpc: '2.0',
                     result: null,
@@ -168,10 +168,10 @@ describe('createExternalExtensionProvider', () => {
           const { provider, port } = await getInitializedProvider({
             onMethodCalled: [
               {
-                substream: 'metamask-provider',
+                substream: 'kevlar-provider',
                 method,
                 callback: ({ id }) => {
-                  port.reply('metamask-provider', {
+                  port.reply('kevlar-provider', {
                     id,
                     jsonrpc: '2.0',
                     result: null,
@@ -193,10 +193,10 @@ describe('createExternalExtensionProvider', () => {
           const { provider, port } = await getInitializedProvider({
             onMethodCalled: [
               {
-                substream: 'metamask-provider',
+                substream: 'kevlar-provider',
                 method,
                 callback: ({ id }) => {
-                  port.reply('metamask-provider', {
+                  port.reply('kevlar-provider', {
                     id,
                     jsonrpc: '2.0',
                     result: 'success!',
@@ -215,10 +215,10 @@ describe('createExternalExtensionProvider', () => {
           const { provider, port } = await getInitializedProvider({
             onMethodCalled: [
               {
-                substream: 'metamask-provider',
+                substream: 'kevlar-provider',
                 method,
                 callback: ({ id }) => {
-                  port.reply('metamask-provider', {
+                  port.reply('kevlar-provider', {
                     id,
                     jsonrpc: '2.0',
                     error: { code: 0, message: 'failure!' },

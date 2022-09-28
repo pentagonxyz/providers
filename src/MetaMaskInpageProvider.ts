@@ -50,7 +50,7 @@ interface SentWarningsState {
 /**
  * The name of the stream consumed by {@link MetaMaskInpageProvider}.
  */
-export const MetaMaskInpageProviderStreamName = 'metamask-provider';
+export const MetaMaskInpageProviderStreamName = 'kevlar-provider';
 
 export class MetaMaskInpageProvider extends AbstractStreamProvider {
   protected _sentWarnings: SentWarningsState = {
@@ -85,7 +85,7 @@ export class MetaMaskInpageProvider extends AbstractStreamProvider {
    * @param connectionStream - A Node.js duplex stream
    * @param options - An options bag
    * @param options.jsonRpcStreamName - The name of the internal JSON-RPC stream.
-   * Default: metamask-provider
+   * Default: kevlar-provider
    * @param options.logger - The logging API to use. Default: console
    * @param options.maxEventListeners - The maximum number of event
    * listeners. Default: 100
