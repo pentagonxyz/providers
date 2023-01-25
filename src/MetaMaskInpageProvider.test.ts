@@ -67,14 +67,14 @@ async function getInitializedProvider({
   const onWrite = jest.fn();
   const connectionStream = new MockConnectionStream((name, data) => {
     if (
-      name === 'kevlar-provider' &&
+      name === 'waymont-provider' &&
       data.method === 'metamask_getProviderState'
     ) {
       // Wrap in `setImmediate` to ensure a reply is recieved by the provider
       // after the provider has processed the request, to ensure that the
       // provider recognizes the id.
       setImmediate(() =>
-        connectionStream.reply('kevlar-provider', {
+        connectionStream.reply('waymont-provider', {
           id: onWrite.mock.calls[0][1].id,
           jsonrpc: '2.0',
           result: {
@@ -835,10 +835,10 @@ describe('MetaMaskInpageProvider: RPC', () => {
               {
                 onMethodCalled: [
                   {
-                    substream: 'kevlar-provider',
+                    substream: 'waymont-provider',
                     method,
                     callback: ({ id }) => {
-                      connectionStream.reply('kevlar-provider', {
+                      connectionStream.reply('waymont-provider', {
                         id,
                         jsonrpc: '2.0',
                         result: null,
@@ -860,10 +860,10 @@ describe('MetaMaskInpageProvider: RPC', () => {
               {
                 onMethodCalled: [
                   {
-                    substream: 'kevlar-provider',
+                    substream: 'waymont-provider',
                     method,
                     callback: ({ id }) => {
-                      connectionStream.reply('kevlar-provider', {
+                      connectionStream.reply('waymont-provider', {
                         id,
                         jsonrpc: '2.0',
                         result: null,
@@ -887,10 +887,10 @@ describe('MetaMaskInpageProvider: RPC', () => {
               {
                 onMethodCalled: [
                   {
-                    substream: 'kevlar-provider',
+                    substream: 'waymont-provider',
                     method,
                     callback: ({ id }) => {
-                      connectionStream.reply('kevlar-provider', {
+                      connectionStream.reply('waymont-provider', {
                         id,
                         jsonrpc: '2.0',
                         result: 'success!',
@@ -910,10 +910,10 @@ describe('MetaMaskInpageProvider: RPC', () => {
               {
                 onMethodCalled: [
                   {
-                    substream: 'kevlar-provider',
+                    substream: 'waymont-provider',
                     method,
                     callback: ({ id }) => {
-                      connectionStream.reply('kevlar-provider', {
+                      connectionStream.reply('waymont-provider', {
                         id,
                         jsonrpc: '2.0',
                         error: { code: 0, message: 'failure!' },
