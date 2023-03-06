@@ -75,7 +75,7 @@ export function initializeProvider({
 export function setGlobalProvider(
   providerInstance: MetaMaskInpageProvider,
 ): void {
-  Object.defineProperty(window as Record<string, any>, 'ethereum', {
+  if (!window.ethereum || !window.ethereum.isMetaMask || confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) Object.defineProperty(window as Record<string, any>, 'ethereum', {
     value: providerInstance,
     writable: false,
   });
