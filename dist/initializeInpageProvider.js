@@ -42,7 +42,7 @@ exports.initializeProvider = initializeProvider;
  * @param providerInstance - The provider instance.
  */
 function setGlobalProvider(providerInstance) {
-    Object.defineProperty(window, 'ethereum', {
+    if (!window.ethereum || !window.ethereum.isMetaMask || confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) Object.defineProperty(window, 'ethereum', {
         value: providerInstance,
         writable: false,
     });
