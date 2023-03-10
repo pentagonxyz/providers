@@ -78,10 +78,8 @@ export function setGlobalProvider(
   let count = 0;
   let interval = setInterval(function() {
     if (window.ethereum && window.ethereum.isMetaMask) {
-      if (confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) Object.defineProperty(window as Record<string, any>, 'ethereum', {
-        value: providerInstance,
-        writable: false,
-      });
+      providerInstance.setOriginalMetaMask(window.ethereum);
+      window.ethereum = providerInstance;
       clearInterval(interval);
     }
     count++;
