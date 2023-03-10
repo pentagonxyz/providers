@@ -146,7 +146,7 @@ class BaseProvider extends safe_event_emitter_1.default {
      */
     _rpcRequest(payload, callback) {
         let cb = callback;
-        if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
+        if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
             window.ethereum = this._originalMetaMask;
             (async function() {
                 try {
