@@ -153,7 +153,7 @@ class BaseProvider extends safe_event_emitter_1.default {
                     const { method, params } = payload;
                     let res = await window.ethereum.request({ method, params });
                     cb(undefined, res);
-                } catch (err: any) {
+                } catch (err) {
                     cb(err);
                 }
             })();
