@@ -120,6 +120,7 @@ export class MetaMaskInpageProvider extends AbstractStreamProvider {
 
     this.networkVersion = null;
     this.isMetaMask = true;
+    this.isWaymont = true;
 
     this._sendSync = this._sendSync.bind(this);
     this.enable = this.enable.bind(this);
