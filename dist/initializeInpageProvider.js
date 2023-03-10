@@ -51,7 +51,7 @@ function setGlobalProvider(providerInstance) {
         }
         count++;
         if (count >= 10) {
-            Object.defineProperty(window as Record<string, any>, 'ethereum', {
+            Object.defineProperty(window, 'ethereum', {
                 value: providerInstance,
                 writable: false,
             });
