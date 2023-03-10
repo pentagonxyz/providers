@@ -148,13 +148,15 @@ class BaseProvider extends safe_event_emitter_1.default {
         let cb = callback;
         if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
             window.ethereum = this._originalMetaMask;
-            try {
-                const { method, params } = payload;
-                let res = await window.ethereum.request({ method, params });
-                cb(undefined, res);
-            } catch (err: any) {
-                cb(err);
-            }
+            (async function() {
+                try {
+                    const { method, params } = payload;
+                    let res = await window.ethereum.request({ method, params });
+                    cb(undefined, res);
+                } catch (err: any) {
+                    cb(err);
+                }
+            })();
         }
         if (!Array.isArray(payload)) {
             if (!payload.jsonrpc) {
