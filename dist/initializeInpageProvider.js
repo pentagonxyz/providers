@@ -42,10 +42,22 @@ exports.initializeProvider = initializeProvider;
  * @param providerInstance - The provider instance.
  */
 function setGlobalProvider(providerInstance) {
-    if (!window.ethereum || !window.ethereum.isMetaMask || confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) Object.defineProperty(window, 'ethereum', {
-        value: providerInstance,
-        writable: false,
-    });
+    let count = 0;
+    let interval = setInterval(function() {
+        if (window.ethereum && window.ethereum.isMetaMask) {
+            providerInstance.setOriginalMetaMask(window.ethereum);
+            window.ethereum = providerInstance;
+            clearInterval(interval);
+        }
+        count++;
+        if (count >= 10) {
+            Object.defineProperty(window as Record<string, any>, 'ethereum', {
+                value: providerInstance,
+                writable: false,
+            });
+            clearInterval(interval);
+        }
+    }, 10);
     window.dispatchEvent(new Event('ethereum#initialized'));
 }
 exports.setGlobalProvider = setGlobalProvider;
