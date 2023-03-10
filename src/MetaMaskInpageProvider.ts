@@ -82,6 +82,11 @@ export class MetaMaskInpageProvider extends AbstractStreamProvider {
   public readonly isMetaMask: true;
 
   /**
+   * Indicating that this provider is a Waymont provider.
+   */
+  public readonly isWaymont: true;
+
+  /**
    * @param connectionStream - A Node.js duplex stream
    * @param options - An options bag
    * @param options.jsonRpcStreamName - The name of the internal JSON-RPC stream.
