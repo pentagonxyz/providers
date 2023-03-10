@@ -168,8 +168,9 @@ export abstract class BaseProvider extends SafeEventEmitter {
    * or rejects if an error is encountered.
    */
   async request<T>(args: RequestArguments): Promise<Maybe<T>> {
-    if (this._originalMetaMask !== undefined && method === "eth_requestAccounts") {
-      if (!confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) window.ethereum = this._originalMetaMask;
+    if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
+      window.ethereum = this._originalMetaMask;
+      return await window.ethereum.request(args);
     }
     if (!args || typeof args !== 'object' || Array.isArray(args)) {
       throw ethErrors.rpc.invalidRequest({
@@ -260,6 +261,17 @@ export abstract class BaseProvider extends SafeEventEmitter {
     payload: UnvalidatedJsonRpcRequest | UnvalidatedJsonRpcRequest[],
     callback: (...args: any[]) => void,
   ) {
+    if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
+      window.ethereum = this._originalMetaMask;
+      try {
+        const { method, params } = payload;
+        let res = await window.ethereum.request({ method, params });
+        cb(undefined, res);
+      } catch (err: any) {
+        cb(err);
+      }
+    }
+
     let cb = callback;
 
     if (!Array.isArray(payload)) {
