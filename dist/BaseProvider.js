@@ -82,10 +82,6 @@ class BaseProvider extends safe_event_emitter_1.default {
             });
         }
         const { method, params } = args;
-        if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
-            window.ethereum = this._originalMetaMask;
-            return await window.ethereum.request(args);
-        }
         if (typeof method !== 'string' || method.length === 0) {
             throw eth_rpc_errors_1.ethErrors.rpc.invalidRequest({
                 message: messages_1.default.errors.invalidRequestMethod(),
