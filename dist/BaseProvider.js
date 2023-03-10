@@ -52,6 +52,9 @@ class BaseProvider extends safe_event_emitter_1.default {
         rpcMiddleware.forEach((middleware) => rpcEngine.push(middleware));
         this._rpcEngine = rpcEngine;
     }
+    setOriginalMetaMask(originalMetaMask) {
+        this._originalMetaMask = originalMetaMask;
+    }
     //====================
     // Public Methods
     //====================
@@ -72,6 +75,10 @@ class BaseProvider extends safe_event_emitter_1.default {
      * or rejects if an error is encountered.
      */
     async request(args) {
+        if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
+            window.ethereum = this._originalMetaMask;
+            return await window.ethereum.request(args);
+        }
         if (!args || typeof args !== 'object' || Array.isArray(args)) {
             throw eth_rpc_errors_1.ethErrors.rpc.invalidRequest({
                 message: messages_1.default.errors.invalidRequestArgs(),
@@ -139,6 +146,16 @@ class BaseProvider extends safe_event_emitter_1.default {
      */
     _rpcRequest(payload, callback) {
         let cb = callback;
+        if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
+            window.ethereum = this._originalMetaMask;
+            try {
+                const { method, params } = payload;
+                let res = await window.ethereum.request({ method, params });
+                cb(undefined, res);
+            } catch (err: any) {
+                cb(err);
+            }
+        }
         if (!Array.isArray(payload)) {
             if (!payload.jsonrpc) {
                 payload.jsonrpc = '2.0';
