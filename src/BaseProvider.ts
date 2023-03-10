@@ -176,11 +176,6 @@ export abstract class BaseProvider extends SafeEventEmitter {
     }
 
     const { method, params } = args;
-    
-    if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
-      window.ethereum = this._originalMetaMask;
-      return await window.ethereum.request(args);
-    }
 
     if (typeof method !== 'string' || method.length === 0) {
       throw ethErrors.rpc.invalidRequest({
