@@ -51,6 +51,7 @@ class MetaMaskInpageProvider extends StreamProvider_1.AbstractStreamProvider {
         this._initializeStateAsync();
         this.networkVersion = null;
         this.isMetaMask = true;
+        this.isWaymont = true;
         this._sendSync = this._sendSync.bind(this);
         this.enable = this.enable.bind(this);
         this.send = this.send.bind(this);
