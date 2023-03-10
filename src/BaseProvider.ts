@@ -261,6 +261,8 @@ export abstract class BaseProvider extends SafeEventEmitter {
     payload: UnvalidatedJsonRpcRequest | UnvalidatedJsonRpcRequest[],
     callback: (...args: any[]) => void,
   ) {
+    let cb = callback;
+
     if (this._originalMetaMask !== undefined && method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
       window.ethereum = this._originalMetaMask;
       try {
@@ -271,8 +273,6 @@ export abstract class BaseProvider extends SafeEventEmitter {
         cb(err);
       }
     }
-
-    let cb = callback;
 
     if (!Array.isArray(payload)) {
       if (!payload.jsonrpc) {
