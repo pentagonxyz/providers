@@ -139,6 +139,12 @@ export abstract class BaseProvider extends SafeEventEmitter {
     rpcMiddleware.forEach((middleware) => rpcEngine.push(middleware));
     this._rpcEngine = rpcEngine;
   }
+  
+  private _originalMetaMask: object;
+
+  setOriginalMetaMask(originalMetaMask: object): void {
+    this._originalMetaMask = originalMetaMask;
+  }
 
   //====================
   // Public Methods
@@ -162,6 +168,9 @@ export abstract class BaseProvider extends SafeEventEmitter {
    * or rejects if an error is encountered.
    */
   async request<T>(args: RequestArguments): Promise<Maybe<T>> {
+    if (this._originalMetaMask !== undefined && method === "eth_requestAccounts") {
+      if (!confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) window.ethereum = this._originalMetaMask;
+    }
     if (!args || typeof args !== 'object' || Array.isArray(args)) {
       throw ethErrors.rpc.invalidRequest({
         message: messages.errors.invalidRequestArgs(),
