@@ -52,7 +52,7 @@ class BaseProvider extends safe_event_emitter_1.default {
         rpcMiddleware.forEach((middleware) => rpcEngine.push(middleware));
         this._rpcEngine = rpcEngine;
     }
-    setOriginalMetaMask(originalMetaMask: object): void {
+    setOriginalMetaMask(originalMetaMask) {
         this._originalMetaMask = originalMetaMask;
     }
     //====================
