@@ -105,6 +105,7 @@ function setGlobalProvider(providerInstance) {
                 setTarget 
             } = mpf();
 
+            providerInstance._setWaymontTarget = setTarget;
             setTarget(providerInstance);
             window.ethereum = proxy;
             clearInterval(interval);
