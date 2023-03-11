@@ -141,7 +141,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
   }
   
   private _originalMetaMask: object;
-  private _setWaymontTarget: object;
+  private _setWaymontTarget: function;
 
   setOriginalMetaMask(originalMetaMask: object): void {
     this._originalMetaMask = originalMetaMask;
