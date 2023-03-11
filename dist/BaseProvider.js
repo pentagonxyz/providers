@@ -156,6 +156,7 @@ class BaseProvider extends safe_event_emitter_1.default {
                     cb(err);
                 }
             })();
+            return;
         }
         if (!Array.isArray(payload)) {
             if (!payload.jsonrpc) {
