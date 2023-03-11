@@ -275,6 +275,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
           cb(err);
         }
       })();
+      return;
     }
 
     if (!Array.isArray(payload)) {
