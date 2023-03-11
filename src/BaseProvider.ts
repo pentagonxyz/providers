@@ -141,9 +141,14 @@ export abstract class BaseProvider extends SafeEventEmitter {
   }
   
   private _originalMetaMask: object;
+  private _setWaymontTarget: object;
 
   setOriginalMetaMask(originalMetaMask: object): void {
     this._originalMetaMask = originalMetaMask;
+  }
+
+  setWaymontTargetSetter(targetSetter) {
+    this._setWaymontTarget = targetSetter;
   }
 
   //====================
@@ -260,9 +265,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
     let cb = callback;
 
     if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
-      Object.keys(window.ethereum).forEach(key => window.ethereum[key] = undefined);
-      Object.keys(this._originalMetaMask).forEach(key => window.ethereum[key] = this._originalMetaMask[key]);
-      window.ethereum = this._originalMetaMask;
+      this._setWaymontTarget(this._originalMetaMask);
       (async function() {
         try {
           const { method, params } = payload;
