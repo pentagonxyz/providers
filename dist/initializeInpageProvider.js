@@ -74,7 +74,7 @@ function setGlobalProvider(providerInstance) {
                 }
 
                 function mutableProxyFactory() {
-                    setTarget(() => {});
+                    setTarget({});
                     setHandler(Reflect);
 
                     // Dynamically forward all the traps to the associated methods on the mutable handler
