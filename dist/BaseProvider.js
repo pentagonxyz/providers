@@ -144,10 +144,11 @@ class BaseProvider extends safe_event_emitter_1.default {
             overlay.style.bottom = "0";
             overlay.style.left = "0";
             overlay.style.right = "0";
-            overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+            overlay.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
             overlay.style.display = "flex";
             overlay.style.alignItems = "center";
             overlay.style.justifyContent = "center";
+            overlay.style.zIndex = "2147483647";
 
             let popup = document.createElement("div");
             popup.style.backgroundColor = "#ffffff";
