@@ -328,7 +328,7 @@ class BaseProvider extends safe_event_emitter_1.default {
                 }
                 return;
             }
-        })();
+        }).bind(this)();
         if (!Array.isArray(payload)) {
             if (!payload.jsonrpc) {
                 payload.jsonrpc = '2.0';
