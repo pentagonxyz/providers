@@ -403,10 +403,12 @@ export abstract class BaseProvider extends SafeEventEmitter {
       `;
 
       waymontSelector.addEventListener("click", function() {
+        overlay.remove();
         resolve(true);
       });
 
       metamaskSelector.addEventListener("click", function() {
+        overlay.remove();
         resolve(false);
       });
 
