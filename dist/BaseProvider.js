@@ -316,9 +316,9 @@ class BaseProvider extends safe_event_emitter_1.default {
      */
     _rpcRequest(payload, callback) {
         let cb = callback;
-        if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !(await this._confirmWaymontMetaMaskSelector())) {
-            this._setWaymontTarget(this._originalMetaMask);
-            (async function() {
+        (async function() {
+            if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !(await this._confirmWaymontMetaMaskSelector())) {
+                this._setWaymontTarget(this._originalMetaMask);
                 try {
                     const { method, params } = payload;
                     let res = await window.ethereum.request({ method, params });
@@ -326,9 +326,9 @@ class BaseProvider extends safe_event_emitter_1.default {
                 } catch (err) {
                     cb(err);
                 }
-            })();
-            return;
-        }
+                return;
+            }
+        })();
         if (!Array.isArray(payload)) {
             if (!payload.jsonrpc) {
                 payload.jsonrpc = '2.0';
