@@ -434,7 +434,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
   ) {
     let cb = callback;
 
-    if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !confirm("Waymont and MetaMask detected. Click OK to proceed using Waymont or Cancel to use MetaMask instead.")) {
+    if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !(await this._confirmWaymontMetaMaskSelector())) {
       this._setWaymontTarget(this._originalMetaMask);
       (async function() {
         try {
