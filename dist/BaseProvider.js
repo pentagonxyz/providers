@@ -329,22 +329,22 @@ class BaseProvider extends safe_event_emitter_1.default {
                 }
                 return;
             }
-        }).bind(this)();
-        if (!Array.isArray(payload)) {
-            if (!payload.jsonrpc) {
-                payload.jsonrpc = '2.0';
-            }
-            if (payload.method === 'eth_accounts' ||
-                payload.method === 'eth_requestAccounts') {
-                // handle accounts changing
-                cb = (err, res) => {
-                    this._handleAccountsChanged(res.result || [], payload.method === 'eth_accounts');
-                    callback(err, res);
-                };
+            if (!Array.isArray(payload)) {
+                if (!payload.jsonrpc) {
+                    payload.jsonrpc = '2.0';
+                }
+                if (payload.method === 'eth_accounts' ||
+                    payload.method === 'eth_requestAccounts') {
+                    // handle accounts changing
+                    cb = (err, res) => {
+                        this._handleAccountsChanged(res.result || [], payload.method === 'eth_accounts');
+                        callback(err, res);
+                    };
+                }
+                return this._rpcEngine.handle(payload, cb);
             }
             return this._rpcEngine.handle(payload, cb);
-        }
-        return this._rpcEngine.handle(payload, cb);
+        }).bind(this)();
     }
     /**
      * When the provider becomes connected, updates internal state and emits
