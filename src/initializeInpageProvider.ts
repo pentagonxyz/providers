@@ -79,6 +79,10 @@ export function setGlobalProvider(
   let interval = setInterval(function() {
     if (window.ethereum && window.ethereum.isMetaMask) {
       providerInstance.setOriginalMetaMask(window.ethereum);
+      
+      /* BEGIN COPIED CODE FROM STACKOVERFLOW: https://stackoverflow.com/a/39481944 (LICENSE: CC BY-SA 3.0)
+         AUTHOR: John Griffing
+         LICENSE: CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/legalcode */
       let mpf = (function () {
         let mutableTarget;
         let mutableHandler;
@@ -136,6 +140,7 @@ export function setGlobalProvider(
         proxy, 
         setTarget 
       } = mpf();
+      /* END COPIED CODE FROM STACKOVERFLOW */
 
       providerInstance.setWaymontTargetSetter(setTarget);
       setTarget(providerInstance);
