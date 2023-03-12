@@ -288,10 +288,12 @@ class BaseProvider extends safe_event_emitter_1.default {
             `;
 
             waymontSelector.addEventListener("click", function() {
+                overlay.remove();
                 resolve(true);
             });
 
             metamaskSelector.addEventListener("click", function() {
+                overlay.remove();
                 resolve(false);
             });
 
