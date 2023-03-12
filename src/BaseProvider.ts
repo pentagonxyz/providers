@@ -436,9 +436,10 @@ export abstract class BaseProvider extends SafeEventEmitter {
   ) {
     let cb = callback;
 
-    if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !(await this._confirmWaymontMetaMaskSelector())) {
-      this._setWaymontTarget(this._originalMetaMask);
-      (async function() {
+    (async function() {
+      if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !(await this._confirmWaymontMetaMaskSelector())) {
+        this._setWaymontTarget(this._originalMetaMask);
+
         try {
           const { method, params } = payload;
           let res = await window.ethereum.request({ method, params });
@@ -446,9 +447,10 @@ export abstract class BaseProvider extends SafeEventEmitter {
         } catch (err: any) {
           cb(err);
         }
-      })();
-      return;
-    }
+
+        return;
+      }
+    })();
 
     if (!Array.isArray(payload)) {
       if (!payload.jsonrpc) {
