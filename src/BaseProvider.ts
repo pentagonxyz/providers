@@ -263,7 +263,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
       overlay.style.display = "flex";
       overlay.style.alignItems = "center";
       overlay.style.justifyContent = "center";
-      overlay.zIndex = "2147483647";
+      overlay.style.zIndex = "2147483647";
 
       let popup = document.createElement("div");
       popup.style.backgroundColor = "#ffffff";
