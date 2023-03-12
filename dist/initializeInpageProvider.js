@@ -50,7 +50,8 @@ function setGlobalProvider(providerInstance) {
             /* BEGIN COPIED AND EDITED CODE FROM STACKOVERFLOW: https://stackoverflow.com/a/39481944
                AUTHOR: John Griffing
                LICENSE: CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/legalcode
-               STACKOVERFLOW LICENSING/COPYRIGHT NOTICE: https://stackoverflow.com/help/licensing */
+               STACKOVERFLOW LICENSING/COPYRIGHT NOTICE: https://stackoverflow.com/help/licensing
+               STACKOVERFLOW DISCLAIMER OF WARRANTIES: https://stackoverflow.com/legal/terms-of-service */
             let mpf = (function () {
                 let mutableTarget;
                 let mutableHandler;
