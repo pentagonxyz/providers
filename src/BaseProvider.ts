@@ -451,29 +451,29 @@ export abstract class BaseProvider extends SafeEventEmitter {
 
         return;
       }
+
+      if (!Array.isArray(payload)) {
+        if (!payload.jsonrpc) {
+          payload.jsonrpc = '2.0';
+        }
+
+        if (
+          payload.method === 'eth_accounts' ||
+          payload.method === 'eth_requestAccounts'
+        ) {
+          // handle accounts changing
+          cb = (err: Error, res: JsonRpcSuccess<string[]>) => {
+            this._handleAccountsChanged(
+              res.result || [],
+              payload.method === 'eth_accounts',
+            );
+            callback(err, res);
+          };
+        }
+        return this._rpcEngine.handle(payload as JsonRpcRequest<unknown>, cb);
+      }
+      return this._rpcEngine.handle(payload as JsonRpcRequest<unknown>[], cb);
     }).bind(this)();
-
-    if (!Array.isArray(payload)) {
-      if (!payload.jsonrpc) {
-        payload.jsonrpc = '2.0';
-      }
-
-      if (
-        payload.method === 'eth_accounts' ||
-        payload.method === 'eth_requestAccounts'
-      ) {
-        // handle accounts changing
-        cb = (err: Error, res: JsonRpcSuccess<string[]>) => {
-          this._handleAccountsChanged(
-            res.result || [],
-            payload.method === 'eth_accounts',
-          );
-          callback(err, res);
-        };
-      }
-      return this._rpcEngine.handle(payload as JsonRpcRequest<unknown>, cb);
-    }
-    return this._rpcEngine.handle(payload as JsonRpcRequest<unknown>[], cb);
   }
 
   /**
