@@ -450,7 +450,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
 
         return;
       }
-    })();
+    }).bind(this)();
 
     if (!Array.isArray(payload)) {
       if (!payload.jsonrpc) {
