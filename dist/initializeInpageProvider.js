@@ -117,7 +117,7 @@ function setGlobalProvider(providerInstance) {
         if (window.ethereum && window.ethereum.isMetaMask && !window.ethereum.isWaymont) {
             providerInstance.setOriginalMetaMask(window.ethereum);
             Object.defineProperty(window, 'ethereum', {
-                value: providerInstance,
+                value: proxy,
                 writable: false,
             }); // Overwrite MetaMask (permanently, just in case something tries to override Waymont after the fact)
             window.dispatchEvent(new Event('ethereum#initialized')); // Re-emit event now that Waymont has overwritten MetaMask in case the dApp is stuck on MetaMask because MetaMask re-emitted the event after it overwrote Waymont
