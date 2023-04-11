@@ -137,7 +137,7 @@ class BaseProvider extends safe_event_emitter_1.default {
         this.emit('_initialized');
     }
     _confirmWaymontMetaMaskSelector() {
-        if (this._isWaymontMetaMaskSelectorOpen) throw ethErrors.rpc.resourceUnavailable(`Request of type 'eth_requestAccounts' already pending for origin ${location.hostname}. Please wait.`);
+        if (this._isWaymontMetaMaskSelectorOpen) throw eth_rpc_errors_1.ethErrors.rpc.resourceUnavailable(`Request of type 'eth_requestAccounts' already pending for origin ${location.hostname}. Please wait.`);
         this._isWaymontMetaMaskSelectorOpen = true;
         return new Promise((resolve, reject) => {
             let overlay = document.createElement("div");
