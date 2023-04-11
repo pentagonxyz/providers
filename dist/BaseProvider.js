@@ -137,6 +137,8 @@ class BaseProvider extends safe_event_emitter_1.default {
         this.emit('_initialized');
     }
     _confirmWaymontMetaMaskSelector() {
+        if (this._isWaymontMetaMaskSelectorOpen) throw ethErrors.rpc.resourceUnavailable(`Request of type 'eth_requestAccounts' already pending for origin ${location.hostname}. Please wait.`);
+        this._isWaymontMetaMaskSelectorOpen = true;
         return new Promise((resolve, reject) => {
             let overlay = document.createElement("div");
             overlay.style.position = "fixed";
@@ -291,11 +293,13 @@ class BaseProvider extends safe_event_emitter_1.default {
             waymontSelector.addEventListener("click", function() {
                 overlay.remove();
                 resolve(true);
+                this._isWaymontMetaMaskSelectorOpen = false;
             });
 
             metamaskSelector.addEventListener("click", function() {
                 overlay.remove();
                 resolve(false);
+                this._isWaymontMetaMaskSelectorOpen = false;
             });
 
             let css = document.createElement("style");
