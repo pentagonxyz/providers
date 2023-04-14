@@ -290,17 +290,17 @@ class BaseProvider extends safe_event_emitter_1.default {
                 </svg>
             `;
 
-            waymontSelector.addEventListener("click", function() {
+            waymontSelector.addEventListener("click", (function() {
                 overlay.remove();
                 resolve(true);
                 this._isWaymontMetaMaskSelectorOpen = false;
-            });
+            }).bind(this));
 
-            metamaskSelector.addEventListener("click", function() {
+            metamaskSelector.addEventListener("click", (function() {
                 overlay.remove();
                 resolve(false);
                 this._isWaymontMetaMaskSelectorOpen = false;
-            });
+            }).bind(this));
 
             let css = document.createElement("style");
             css.innerHTML = "#waymont-selector-waymont:hover, #waymont-selector-metamask:hover { background-color: #f9fafb; }";
@@ -331,7 +331,6 @@ class BaseProvider extends safe_event_emitter_1.default {
                 } catch (err) {
                     cb(err);
                 }
-                return;
             }
             if (!Array.isArray(payload)) {
                 if (!payload.jsonrpc) {
