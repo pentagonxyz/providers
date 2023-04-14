@@ -442,15 +442,21 @@ export abstract class BaseProvider extends SafeEventEmitter {
     let cb = callback;
 
     (async function() {
-      if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts" && !(await this._confirmWaymontMetaMaskSelector())) {
-        this._setWaymontTarget(this._originalMetaMask);
+      if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts") {
+        if (!(await this._confirmWaymontMetaMaskSelector())) {
+          this._setWaymontTarget(this._originalMetaMask);
 
-        try {
-          const { method, params } = payload;
-          let res = await window.ethereum.request({ method, params });
-          cb(undefined, res);
-        } catch (err: any) {
-          cb(err);
+          try {
+            const { method, params } = payload;
+            let res = await window.ethereum.request({ method, params });
+            cb(undefined, res);
+          } catch (err: any) {
+            cb(err);
+          }
+
+          return;
+        } else {
+          this._originalMetaMask = undefined;
         }
       }
 
