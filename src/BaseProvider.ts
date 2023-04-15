@@ -454,7 +454,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
             cb(err);
           }
 
-          if (this._originalMetaMask.chainId !== this.chainId) window.ethereum.emit('chainChanged', this._originalMetaMask.chainId);
+          if (this._originalMetaMask.chainId !== this.chainId) setTimeout((() => window.ethereum.emit('chainChanged', this._originalMetaMask.chainId)).bind(this), 100);
           return;
         } else {
           this._originalMetaMask = undefined;
