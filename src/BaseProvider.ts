@@ -445,7 +445,6 @@ export abstract class BaseProvider extends SafeEventEmitter {
       if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts") {
         if (!(await this._confirmWaymontMetaMaskSelector())) {
           this._setWaymontTarget(this._originalMetaMask);
-          if (this._originalMetaMask.chainId !== this.chainId) this.emit('chainChanged', this._originalMetaMask.chainId);
 
           try {
             const { method, params } = payload;
@@ -455,6 +454,7 @@ export abstract class BaseProvider extends SafeEventEmitter {
             cb(err);
           }
 
+          if (this._originalMetaMask.chainId !== this.chainId) window.ethereum.emit('chainChanged', this._originalMetaMask.chainId);
           return;
         } else {
           this._originalMetaMask = undefined;
