@@ -325,7 +325,7 @@ class BaseProvider extends safe_event_emitter_1.default {
             if (this._originalMetaMask !== undefined && payload.method === "eth_requestAccounts") {
                 if (!(await this._confirmWaymontMetaMaskSelector())) {
                     this._setWaymontTarget(this._originalMetaMask);
-                    if (this._originalMetaMask.chainId !== this.chainId) this.emit('chainChanged', this.chainId);
+                    if (this._originalMetaMask.chainId !== this.chainId) this.emit('chainChanged', this._originalMetaMask.chainId);
                     try {
                         const { method, params } = payload;
                         let res = await window.ethereum.request({ method, params });
